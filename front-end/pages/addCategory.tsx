@@ -27,7 +27,7 @@ export default function addcategory() {
       noValidate
       autoComplete="off"
     >
-      <TextField id="filled-basic" label="Name" variant="filled" />
+      <TextField id="filled-basic" label="Name" variant="standard" />
       <TextField id="standard-basic" label="Color" variant="standard" />
       <Button type="submit">Add category</Button>
     </Box>
