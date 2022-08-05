@@ -32,6 +32,7 @@ export default function BasicTable({ categoriesdata }: any) {
       })
       .then((res) => {
         if (res.statusText == "OK") {
+          console.log("orj ireh");
           axios
             .get("http://localhost:3001/category")
             .then((res) => res.data.data)

@@ -3,8 +3,9 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import axios from "axios";
-
+import { useRouter } from "next/router";
 export default function addcategory() {
+  const router = useRouter();
   const addCategory = (e: any) => {
     e.preventDefault();
     const targetName = e.target[0].value;
@@ -14,7 +15,11 @@ export default function addcategory() {
         name: targetName,
         color: targerColor,
       })
-      .then((res) => console.log(res.status))
+      .then((res) => {
+        if (res.statusText == "OK") {
+          router.push("/category");
+        }
+      })
       .catch((err) => console.log(err));
   };
   return (

@@ -4,6 +4,7 @@ import CategotyTable from "../components/CatgoryTable";
 import { Container } from "@mui/material";
 import axios from "axios";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 interface Props {
   categoriesdata?: {
     id: Number;
@@ -12,10 +13,13 @@ interface Props {
   };
 }
 const category: NextPage<Props> = ({ categoriesdata }) => {
+  const router = useRouter();
   return (
     <Container maxWidth="lg">
       <h1>All categories page</h1>
-      <Button variant="contained">Hello World</Button>
+      <Button variant="contained" onClick={() => router.push("/foods")}>
+        Foods{" "}
+      </Button>
       <CategotyTable categoriesdata={categoriesdata} />
     </Container>
   );
