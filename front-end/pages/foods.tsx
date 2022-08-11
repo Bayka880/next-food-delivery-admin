@@ -36,6 +36,7 @@ export default foods;
 
 foods.getInitialProps = async (ctx: any) => {
   const res = await axios.get("http://localhost:3001/foods");
+  const catRes = axios.get("http://localhost:3001/category");
   const json = await res.data.data;
   console.log(json);
   return { foods: json };

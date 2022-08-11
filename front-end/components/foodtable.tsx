@@ -89,7 +89,7 @@ export default function Foodtable({ foods }: any) {
             <TableCell align="right">Category name</TableCell>
             <TableCell align="right">Category color</TableCell>
             <TableCell align="right">
-              <Link href="/addCategory">Add category</Link>
+              <Link href="/addFood">Add food</Link>
             </TableCell>
           </TableRow>
         </TableHead>

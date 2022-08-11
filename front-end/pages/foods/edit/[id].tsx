@@ -1,27 +1,60 @@
-import { Box, Button, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  MenuItem,
+  NativeSelect,
+  Select,
+  TextField,
+} from "@mui/material";
 import axios from "axios";
-import React from "react";
-import { Theme, useTheme } from "@mui/material/styles";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import FormControl from "@mui/material/FormControl";
-import { SelectChangeEvent } from "@mui/material/Select";
+import { useRouter } from "next/router";
+import React, { Key } from "react";
 
+type Food = {
+  name: String;
+  price: Number;
+  ingredients: String;
+  stock: Number;
+  discount: Number;
+  image: String;
+  portion: Number;
+  thumb_image: String;
+  catId: Number;
+};
+type Category = {
+  id: string | number | readonly string[] | undefined;
+  name: String;
+  color: String;
+};
 export default function food({ foods, cat }: any) {
-  console.log(cat);
+  const router = useRouter();
   const updateFood = (e: any) => {
-    const name = e.target.name.value;
-    console.log(name);
+    e.preventDefault();
+    const cat = parseInt(e.target[8].value);
+    console.log(typeof cat);
+
+    axios
+      .put("http://localhost:3001/foods/update", {
+        id: foods[0].id,
+        name: e.target.name.value,
+        price: e.target.price.value,
+        ingredients: e.target.ingredients.value,
+        stock: e.target.stock.value,
+        discount: e.target.discount.value,
+        image: e.target.image.value,
+        portion: e.target.portion.value,
+        thumb_image: e.target.thumb.value,
+        categoryID: cat,
+      })
+      .then((res) => {
+        if (res.statusText == "OK") {
+          console.log("update success");
+          router.push("/foods");
+        }
+      })
+      .catch((err) => console.log(err));
   };
-  const [personName, setPersonName] = React.useState<string[]>([]);
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+
   return (
     <>
       <h1 style={{ color: "black" }}>Food</h1>
@@ -91,45 +124,23 @@ export default function food({ foods, cat }: any) {
             name="thumb"
             defaultValue={foods[0].thumb_image}
           />
-          {/* <Select labelId="label" id="select" value="20">
-            {cat.map((c: any) => {
+
+          <NativeSelect
+            defaultValue={foods[0].categoryID}
+            name="categoryId"
+            inputProps={{
+              name: "category",
+              id: "uncontrolled-native",
+            }}
+          >
+            {cat.map((c: Category, i: Key) => {
               return (
-                <MenuItem key={c.id} value={c.id}>
+                <option key={i} value={c.id}>
                   {c.name}
-                </MenuItem>
+                </option>
               );
             })}
-          </Select> */}
-          <Select
-            multiple
-            displayEmpty
-            value={personName}
-            onChange={handleChange}
-            input={<OutlinedInput />}
-            renderValue={(selected) => {
-              if (selected.length === 0) {
-                return <em>Placeholder</em>;
-              }
-
-              return selected;
-            }}
-            // MenuProps={MenuProps}
-            inputProps={{ "aria-label": "Without label" }}
-          >
-            <MenuItem disabled value="">
-              <em>Placeholder</em>
-            </MenuItem>
-            {cat.map((c: any) => (
-              <MenuItem
-                key={c.id}
-                value={c.id}
-                // style={getStyles(name, personName, theme)}
-              >
-                {c.name}
-              </MenuItem>
-            ))}
-          </Select>
-
+          </NativeSelect>
           <Button type="submit">Update food</Button>
         </div>
       </Box>
