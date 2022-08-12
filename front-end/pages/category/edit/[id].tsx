@@ -28,7 +28,7 @@ export default function cat({ category }: any) {
   }
   return (
     <>
-      <h1 style={{ color: "black" }}>One category</h1>cat
+      <h1 style={{ color: "black" }}>One category</h1>
       <Box
         component="form"
         onSubmit={(e: any) => addCategory(e)}
