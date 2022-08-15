@@ -19,7 +19,7 @@ const settings = ["Profile", "Logout"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>();
-  console.log(anchorElNav);
+
   const router = useRouter();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -39,10 +39,12 @@ const Navbar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const [name, setName] = React.useState();
+
   const handlerGo = (e: any) => {
     e.preventDefault();
-    console.log(e.target.outerText);
     const pagename = e.target.outerText.toLowerCase();
+    setName(pagename);
     router.push(`/${pagename}`);
   };
 
@@ -122,7 +124,7 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Admin panel
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -130,6 +132,7 @@ const Navbar = () => {
                 key={page}
                 onClick={(e) => handlerGo(e)}
                 sx={{ my: 2, color: "white", display: "block" }}
+                style={{ color: name == page ? "black" : "white" }}
               >
                 {page}
               </Button>
@@ -139,7 +142,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -171,6 +174,3 @@ const Navbar = () => {
   );
 };
 export default Navbar;
-function useRoute() {
-  throw new Error("Function not implemented.");
-}

@@ -17,9 +17,6 @@ const category: NextPage<Props> = ({ categoriesdata }) => {
   return (
     <Container maxWidth="lg">
       <h1>All categories page</h1>
-      <Button variant="contained" onClick={() => router.push("/foods")}>
-        Foods{" "}
-      </Button>
       <CategotyTable categoriesdata={categoriesdata} />
     </Container>
   );

@@ -25,9 +25,6 @@ const foods: NextPage<Props> = ({ foods }) => {
   return (
     <Container maxWidth="xl">
       <h1 style={{ color: "black" }}> Foods page</h1>
-      <Button variant="outlined" onClick={() => router.push("/category")}>
-        Category page
-      </Button>
       <Foodtable foods={foods} />
     </Container>
   );
