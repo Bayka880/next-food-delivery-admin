@@ -38,6 +38,8 @@ const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    localStorage.removeItem("user");
+    window.location.reload();
   };
   const [name, setName] = React.useState();
 

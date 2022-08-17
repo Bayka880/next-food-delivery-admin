@@ -14,7 +14,7 @@ interface State {
   password: String;
   showPassword: boolean;
 }
-export default function login() {
+export default function Login() {
   const [values, setValues] = React.useState<State>({
     password: "",
     showPassword: false,
